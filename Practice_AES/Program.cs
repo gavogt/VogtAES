@@ -25,7 +25,7 @@ namespace Practice_AES
             try
             {
                 encrypted = Encrypt(message, aes.Key, aes.IV);
-                Console.WriteLine(encrypted);
+                Console.WriteLine(new ASCIIEncoding().GetString(encrypted));
 
                 // cw snippet
                 Console.WriteLine("Here");
