@@ -85,7 +85,7 @@ namespace Practice_AES
         {
             Aes aes = Aes.Create();
 
-            MemoryStream ms = new MemoryStream();
+            MemoryStream ms = new MemoryStream(Data);
             CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(Key, IV), CryptoStreamMode.Read);
 
             // Couldn't remember
