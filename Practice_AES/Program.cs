@@ -16,5 +16,15 @@ namespace Practice_AES
             Aes aes = Aes.Create();
 
         }
+
+        public static string Encrypt(string str, byte[] Key, byte[] IV)
+        {
+            return str;
+        }
+
+        public static Byte[] Decrypt(byte[] Data, byte[] Key, byte[] IV)
+        {
+            return Data;
+        }
     }
 }
