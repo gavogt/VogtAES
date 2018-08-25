@@ -12,19 +12,55 @@ namespace Practice_AES
     {
         static void Main(string[] args)
         {
+            string message = String.Empty;
+            int choice = default;
+
             // Create an AES object
             Aes aes = Aes.Create();
 
+
         }
 
+        /// <summary>
+        /// Method that takes a string to be encrypted by AES
+        /// </summary>
+        /// <param name="str">String to pass in to be encrypted</param>
+        /// <param name="Key">Key for the data</param>
+        /// <param name="IV">Initialization Vector for the data</param>
+        /// <returns></returns>
         public static string Encrypt(string str, byte[] Key, byte[] IV)
         {
+            Aes aes = Aes.Create();
+
+            MemoryStream ms = new MemoryStream();
+            CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write);
+
+            cs.FlushFinalBlock();
+
+            ms.Close();
+            cs.Close();
+
             return str;
         }
 
+
+        #region Decrypt
+        /// <summary>
+        /// Method that decrypts AES
+        /// </summary>
+        /// <param name="Data">Byte Array to pass in the encrypted data</param>
+        /// <param name="Key">Key for the data</param>
+        /// <param name="IV">Initialization Vector for the data</param>
+        /// <returns></returns>
         public static Byte[] Decrypt(byte[] Data, byte[] Key, byte[] IV)
         {
+            Aes aes = Aes.Create();
+
+            MemoryStream ms = new MemoryStream();
+            CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(Key, IV), CryptoStreamMode.Read);
+
             return Data;
         }
+        #endregion
     }
 }
