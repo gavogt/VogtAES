@@ -28,19 +28,25 @@ namespace Practice_AES
         /// <param name="Key">Key for the data</param>
         /// <param name="IV">Initialization Vector for the data</param>
         /// <returns></returns>
-        public static string Encrypt(string str, byte[] Key, byte[] IV)
+        public static byte[] Encrypt(string str, byte[] Key, byte[] IV)
         {
             Aes aes = Aes.Create();
 
             MemoryStream ms = new MemoryStream();
             CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write);
 
+            // Couldn't remember again
+            Byte[] toEncrypt = new ASCIIEncoding().GetBytes(str);
+
+            cs.Write(toEncrypt, 0, toEncrypt.Length);
             cs.FlushFinalBlock();
+
+            byte[] encrypted = ms.ToArray();
 
             ms.Close();
             cs.Close();
 
-            return str;
+            return encrypted;
         }
 
 
