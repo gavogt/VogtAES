@@ -12,11 +12,33 @@ namespace Practice_AES
     {
         static void Main(string[] args)
         {
+            byte[] encrypted = default;
             string message = String.Empty;
-            int choice = default;
+            string decrypted = String.Empty;
 
             // Create an AES object
             Aes aes = Aes.Create();
+
+            Console.WriteLine("What is the message you'd like to encrypt?: ");
+            message = Console.ReadLine();
+
+            try
+            {
+                encrypted = Encrypt(message, aes.Key, aes.IV);
+                Console.WriteLine(encrypted);
+
+                // cw snippet
+                Console.WriteLine("Here");
+                decrypted = Decrypt(encrypted, aes.Key, aes.IV);
+                Console.WriteLine(decrypted);
+                
+            }
+            catch
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Error! Please try again!");
+                
+            }
 
 
         }
@@ -47,6 +69,7 @@ namespace Practice_AES
             cs.Close();
 
             return encrypted;
+
         }
 
 
@@ -58,14 +81,20 @@ namespace Practice_AES
         /// <param name="Key">Key for the data</param>
         /// <param name="IV">Initialization Vector for the data</param>
         /// <returns></returns>
-        public static Byte[] Decrypt(byte[] Data, byte[] Key, byte[] IV)
+        public static string Decrypt(byte[] Data, byte[] Key, byte[] IV)
         {
             Aes aes = Aes.Create();
 
             MemoryStream ms = new MemoryStream();
             CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(Key, IV), CryptoStreamMode.Read);
 
-            return Data;
+            // Couldn't remember
+            byte[] decrypted = new byte[Data.Length];
+
+            cs.Read(decrypted, 0, decrypted.Length);
+
+            return new ASCIIEncoding().GetString(decrypted);
+
         }
         #endregion
     }
